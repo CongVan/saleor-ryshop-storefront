@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { HomepageBlock, Layout } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
@@ -21,11 +21,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     query: HomepageBlocksQueryDocument,
     variables: { slug: HOMEPAGE_MENU, ...contextToRegionQuery(context) },
   });
+
   return {
     props: {
       menuData: result?.data,
     },
-    revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
+    // revalidate: 0, // value in seconds, how often ISR will trigger on the server
   };
 };
 function Home({ menuData }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -55,7 +56,7 @@ export default Home;
 
 export const getStaticPaths: GetStaticPaths = () => ({
   paths: [],
-  fallback: "blocking",
+  fallback: true,
 });
 
 Home.getLayout = function getLayout(page: ReactElement) {
