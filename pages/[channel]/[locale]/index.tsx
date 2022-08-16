@@ -26,7 +26,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       menuData: result?.data,
     },
-    // revalidate: 0, // value in seconds, how often ISR will trigger on the server
+    revalidate: 1, // value in seconds, how often ISR will trigger on the server
   };
 };
 function Home({ menuData }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -56,7 +56,7 @@ export default Home;
 
 export const getStaticPaths: GetStaticPaths = () => ({
   paths: [],
-  fallback: true,
+  fallback: "blocking",
 });
 
 Home.getLayout = function getLayout(page: ReactElement) {

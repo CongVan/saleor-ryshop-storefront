@@ -22,7 +22,7 @@ export interface Channel {
 }
 
 export const DEFAULT_CHANNEL: Channel = {
-  slug: "vn-channel",
+  slug: "default-channel",
   name: "Viet nam channel",
   currencyCode: "VND",
 };
